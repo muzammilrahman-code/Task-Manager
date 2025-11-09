@@ -7,7 +7,11 @@ import taskRoute from './route/task.route.js'
 
 dotenv.config();
 const app = express();
-app.use(cors())
+app.use(cors({
+  origin: ["https://task-management-l3m2.vercel.app"],
+  credentials: true,
+}));
+
 
 app.use(express.json())
 const port = process.env.PORT || 5000;
