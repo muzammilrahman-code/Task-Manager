@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector } from 'react-redux';
-import { AUTH_URL } from '../utils/api';
+import { BASE_URL } from '../../utils/api';
 
 const Signup = () => {
     const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -26,7 +26,7 @@ const Signup = () => {
     }
 
     try {
-  const response = await axios.post(`${AUTH_URL}/signup`, data);
+      const response = await axios.post(`${BASE_URL}/api/v1/signup`, data);
       console.log(response);
       alert("Signup successful!");
       setData({ username: "", email: "", password: "" });

@@ -10,7 +10,8 @@ export const createTask = async (req, res) =>{
         const saveTask = await newTask.save();
 
         const taskId = saveTask._id;
-        await User.findByIdAndUpdate(id, {$push: {tasks: taskId._id}})
+        // push the saved task id to the user's tasks array
+        await User.findByIdAndUpdate(id, {$push: {tasks: taskId}})
 
         res.status(200).json({message: "Task Created"})
     } catch (error) {
@@ -25,6 +26,7 @@ export const getAllTask = async (req, res) =>{
             path: "tasks",
             options: {sort: {createdAt: -1}}
         })
+        if (!userData) return res.status(200).json({ data: { tasks: [] } });
         res.status(200).json({ data: userData});
     } catch (error) {
         return res.status(500).json({message: error.message})
@@ -60,7 +62,8 @@ export const updateImpTask = async(req, res) =>{
     try {
         const {id} = req.params;
         const taskData = await Task.findById(id);
-        const impTask = taskData.important;
+        if (!taskData) return res.status(404).json({ message: 'Task not found' });
+        const impTask = !!taskData.important;
         await Task.findByIdAndUpdate(id, { important: !impTask})
         res.status(200).json({message: "Task updated successfully"})
     } catch (error) {
@@ -72,7 +75,8 @@ export const updateCompleteTask = async(req, res) =>{
     try {
         const {id} = req.params;
         const taskData = await Task.findById(id);
-        const completeTask = taskData.complete;
+        if (!taskData) return res.status(404).json({ message: 'Task not found' });
+        const completeTask = !!taskData.complete;
         await Task.findByIdAndUpdate(id, { complete: !completeTask})
         res.status(200).json({message: "Task updated successfully"})
     } catch (error) {
@@ -88,6 +92,7 @@ export const getImpTask = async (req, res) =>{
             match: {important: true},
             options: {sort: {createdAt: -1}}
         })
+        if (!data) return res.status(200).json({ data: [] });
         const impTaskData = data.tasks;
         res.status(200).json({ data: impTaskData});
     } catch (error) {
@@ -103,6 +108,7 @@ export const getCompleteTask = async (req, res) =>{
             match: {complete: true},
             options: {sort: {createdAt: -1}}
         })
+        if (!data) return res.status(200).json({ data: [] });
         const compTaskData = data.tasks;
         res.status(200).json({ data: compTaskData});
     } catch (error) {
@@ -118,6 +124,7 @@ export const getIncompleteTask = async (req, res) =>{
             match: {complete: false},
             options: {sort: {createdAt: -1}}
         })
+        if (!data) return res.status(200).json({ data: [] });
         const compTaskData = data.tasks;
         res.status(200).json({ data: compTaskData});
     } catch (error) {

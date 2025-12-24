@@ -33,21 +33,32 @@ export const signUp = async (req, res) =>{
     }
     }
 
-export const logIn = async (req, res) =>{
-    const {username, password} = req.body;
-    const userCheck = await User.findOne({username})
-    if(!userCheck){
-        return res.status(400).json({message: "Invalid Credentials"})
-    }
-   bcrypt.compare(password, userCheck.password, (err, data) =>{
-    if(data){
-        const authClaim = [{name: username}, {jti: jwt.sign({}, process.env.JWT_SECRET)}]
-        const token = jwt.sign({authClaim}, process.env.JWT_SECRET, {expiresIn: "2d"})
-        res.status(200).json({id: userCheck._id, token: token})
-    }else{
-        return res.status(400).json({message: "Invalid Credentials"})
+export const login = async (req, res) =>{
+    try {
+        const {username, password} = req.body || {};
+        if (!username || !password) {
+            return res.status(400).json({ message: "Username and password are required" });
+        }
 
+        const userCheck = await User.findOne({ username });
+        if (!userCheck) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        const match = await bcrypt.compare(password, userCheck.password);
+        if (!match) {
+            return res.status(400).json({ message: "Invalid Credentials" });
+        }
+
+        if (!process.env.JWT_SECRET) {
+            return res.status(500).json({ message: "Server configuration error: missing JWT_SECRET" });
+        }
+
+        // create token
+        const authClaim = { name: username };
+        const token = jwt.sign(authClaim, process.env.JWT_SECRET, { expiresIn: "2d" });
+        return res.status(200).json({ id: userCheck._id, token });
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
-   })
-   
 }

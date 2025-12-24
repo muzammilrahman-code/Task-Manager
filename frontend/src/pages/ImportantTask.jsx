@@ -1,26 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Cards from '../components/Home/Cards'
 import axios from 'axios';
+import { BASE_URL } from '../utils/api';
 
 const ImportantTask = () => {
   const [Data, setData] = useState()
-  const headers = {
+
+  const fetchData = async() =>{
+    const headers = {
         id: localStorage.getItem("id"),
         Authorization: `Bearer ${localStorage.getItem("token")}`
       };
-    
-      useEffect(() =>{
+    const response = await axios.get(`${BASE_URL}/get-imp-task/`, { headers });
+    setData(response.data.data);
+  }
 
-        const fetch = async() =>{
-        const response = await axios.get("http://localhost:4000/api/v2/get-imp-task/", 
-          { headers }
-      );
-        setData(response.data.data);
-      }
-      fetch();
-      },[])
+  useEffect(() =>{
+    fetchData();
+  },[])
   return (
-    <div><Cards home={"false"} data={Data}/></div>
+    <div><Cards home={"false"} data={Data} refreshData={fetchData} /></div>
   )
 }
 

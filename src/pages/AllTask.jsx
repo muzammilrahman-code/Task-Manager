@@ -1,29 +1,29 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cards from '../components/Home/Cards'
 import { IoAddCircleSharp } from "react-icons/io5";
 import InputData from '../components/Home/InputData';
 import axios from 'axios';
-import { BASE_URL } from '../utils/api';
-
+import { BASE_URL } from '../../utils/api';
 
 const AllTAsk = () => {
   const [InputDiv, setInputDiv] = useState("hidden")
   const [updatedData, setUpdatedData] = useState({id:"", title:"", desc:""});
     const [Data, setData] = useState()
-    // fetchData is exposed so child components (Cards, InputData) can trigger a refresh
-    const fetchData = async() =>{
-      const headers = {
-        id: localStorage.getItem("id"),
-        Authorization: `Bearer ${localStorage.getItem("token")}`
-      };
-      const response = await axios.get(`${BASE_URL}/get-all-task`, { headers });
+  const headers = {
+      id: localStorage.getItem("id"),
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    };
+  
+    useEffect(() =>{
+      const fetch = async() =>{
+      const response = await axios.get(`${BASE_URL}/api/v2/get-all-task`, 
+        { headers }
+    );
       setData(response.data.data);
     }
-
-    useEffect(() =>{
-      if(localStorage.getItem("id") && localStorage.getItem("token")){
-        fetchData();
-      }
+    if(localStorage.getItem("id") && localStorage.getItem("token")){
+    fetch();
+    }
     },[])
   return (
     <>
@@ -33,9 +33,9 @@ const AllTAsk = () => {
         <button> <IoAddCircleSharp className='text-3xl  cursor-pointer'/></button>
         </h3>
       </div>
-  {Data && (<Cards home={"true"} setInputDiv={setInputDiv} data={Data.tasks} setUpdatedData={setUpdatedData} refreshData={fetchData} />)}
+      {Data && (<Cards home={"true"} setInputDiv={setInputDiv} data={Data.tasks} setUpdatedData={setUpdatedData} />)}
     </div>
-  <InputData InputDiv={InputDiv} setInputDiv={setInputDiv} updatedData={updatedData} setUpdatedData={setUpdatedData} refreshData={fetchData} />
+    <InputData InputDiv={InputDiv} setInputDiv={setInputDiv} updatedData={updatedData} setUpdatedData={setUpdatedData} />
     </>
   )
 }
