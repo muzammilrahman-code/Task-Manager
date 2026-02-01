@@ -12,4 +12,4 @@ const defaultHost = import.meta.env.MODE === "development" ? "http://localhost:5
 const host = normalized ? stripApiSuffix(normalized) : defaultHost;
 
 export const AUTH_URL = host.endsWith("/api/v1") ? host : `${host}/api/v1`;
-export const BASE_URL = host.endsWith("/api/v2") ? host : `${host}/api/v2`;
+export const BASE_URL = `${host}/api`;

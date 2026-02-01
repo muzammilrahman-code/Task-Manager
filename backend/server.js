@@ -11,6 +11,8 @@ app.use(cors({
   origin: [
     "https://task-management-uypq.vercel.app",  // frontend
     "https://task-manager-five-rho-37.vercel.app", // backend domain
+    "http://localhost:5173", // frontend local
+    "http://localhost:5000"  // backend local
   ],
   credentials: true,
 }));
