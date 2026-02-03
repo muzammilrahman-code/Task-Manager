@@ -1,4 +1,4 @@
-const baseHost = "http://localhost:4000";
+const baseHost = import.meta.env.VITE_API_BASE_URL || "http://localhost:4000";
 
 export const AUTH_URL = `${baseHost}/api/v1`;
 export const TASK_URL = `${baseHost}/api/v2`;

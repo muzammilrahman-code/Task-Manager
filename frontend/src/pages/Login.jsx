@@ -34,6 +34,10 @@ const Login = () => {
     try {
       const response = await axios.post(`${AUTH_URL}/login`, data);
 
+      if (!response.data) {
+        throw new Error("Invalid response from server");
+      }
+
       setData({ username: "", password: "" });
 
       localStorage.setItem("id", response.data.id || response.data.user?._id);
@@ -42,7 +46,9 @@ const Login = () => {
       dispatch(authAction.login()); // triggers redirect via useEffect
 
     } catch (error) {
-      alert(error.response?.data?.message || "Login failed");
+      console.error("Login error:", error);
+      const errorMessage = error.response?.data?.message || error.message || "Login failed. Please try again.";
+      alert(errorMessage);
     }
   };
 
