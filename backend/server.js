@@ -24,19 +24,22 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));  
-const port = process.env.PORT || 5000;
 
 app.use('/api/v1', userRoute)
 app.use('/api/v2', taskRoute)
+
 app.get('/', (req, res) =>{
     res.send("hello server is running");
 })
 
 connectDB();
+
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`server is running on port ${port}`)
 })
+
+export default app;
 

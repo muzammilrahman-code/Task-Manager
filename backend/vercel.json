@@ -1,21 +1,6 @@
 {
   "version": 2,
-  "env": [
-    "MONGO_URI",
-    "JWT_SECRET",
-    "FRONTEND_URL",
-    "PORT"
-  ],
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
+    { "src": "/api/(.*)", "dest": "/api/$1" }
   ]
 }
