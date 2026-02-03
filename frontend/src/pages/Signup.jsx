@@ -26,13 +26,13 @@ const Signup = () => {
     }
 
     try {
-  const response = await axios.post(`${AUTH_URL}/signup`, data);
+        const response = await axios.post(`${AUTH_URL}/signup`, data);
       console.log(response);
       alert("Signup successful!");
       setData({ username: "", email: "", password: "" });
+        history("/login");
     } catch (error) {
-     alert(error.response.data.message);
-     history("/login");
+        alert(error.response?.data?.message || "Signup failed");
     }
   };
 

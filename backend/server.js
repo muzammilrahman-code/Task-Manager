@@ -9,12 +9,12 @@ dotenv.config();
 const app = express();
 app.use(cors({
   origin: [
-    "https://task-management-uypq.vercel.app",  // frontend
-    "https://task-manager-five-rho-37.vercel.app", // backend domain
-    "http://localhost:5173", // frontend local
-    "http://localhost:5000"  // backend local
+    "http://localhost:5173",
+    "http://localhost:3000"
   ],
   credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "id"]
 }));
 
 

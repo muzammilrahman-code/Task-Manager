@@ -8,6 +8,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../utils/api';
 
 
+
 const Cards = ({home, setInputDiv, data, setUpdatedData, refreshData}) => {
     const headers = {
       id: localStorage.getItem("id"),
