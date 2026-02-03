@@ -9,19 +9,21 @@ dotenv.config();
 
 const app = express();
 
-/* ✅ CORS CONFIG — FIXED */
-// api/v2/index.js
-app.use(cors({
+const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "https://task-management-uypq.vercel.app"
-  ],
+    "http://localhost:3000",
+    "http://localhost:4000",
+    "https://task-management-uypq.vercel.app",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "id"],
   credentials: true,
-}));
+};
 
-app.options("*", cors());
+app.use(cors(corsOptions));
+app.options("*", cors(corsOptions));
 
 app.use(express.json());
 
