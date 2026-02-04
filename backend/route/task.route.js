@@ -18,9 +18,9 @@ router.delete("/delete-task/:id", verifyToken, deleteTask)
 router.put("/update-task/:id", verifyToken, updateTask)
 router.put("/update-imp-task/:id", verifyToken, updateImpTask)
 router.put("/update-complete-task/:id", verifyToken, updateCompleteTask)
-router.get("/get-imp-task/", verifyToken, getImpTask)
-router.get("/get-comp-task/", verifyToken, getCompleteTask)
-router.get("/get-incomp-task/", verifyToken, getIncompleteTask)
+router.get("/get-imp-task", verifyToken, getImpTask)
+router.get("/get-comp-task", verifyToken, getCompleteTask)
+router.get("/get-incomp-task", verifyToken, getIncompleteTask)
 
 
 
