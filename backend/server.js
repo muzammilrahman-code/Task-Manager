@@ -13,6 +13,7 @@ const app = express();
 const corsOptions = {
   origin: [
     "https://task-management-uypq.vercel.app",
+    "https://task-manager-five-rho-37.vercel.app",
     "http://localhost:4000",
     "http://localhost:5173",
     "http://localhost:3000",
@@ -24,7 +25,15 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
+// Handle preflight requests for all routes
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,id');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.sendStatus(200);
+});
 
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
