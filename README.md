@@ -1,37 +1,24 @@
 📝 Task Manager Application
-
 A full-stack Task Manager Web Application designed to help users efficiently manage their daily tasks. The application allows users to securely create an account, log in, and manage tasks with different statuses such as important, completed, and incomplete. The project focuses on clean architecture, secure authentication, and a smooth user experience.
 
 🚀 Features
-
 User authentication and authorization using JWT
-
 Secure password hashing with bcrypt
-
 Create, update, delete, and manage tasks
-
 Mark tasks as important or completed
-
 Filter tasks by status (important, completed, incomplete)
-
 Protected routes using authentication middleware
-
 Responsive and clean UI
 
 🛠️ Tech Stack
-
 Frontend: React, Redux, JavaScript, Tailwind CSS
-
 Backend: Node.js, Express.js
-
 Database: MongoDB Atlas
-
 Authentication: JWT, bcrypt
-
 API: RESTful APIs
 
 📷 Application Preview
-
+![images alt](https://github.com/muzammilrahman-code/Task-Manager/blob/5fe8f4d5bd6a270dd888a4c7d54c788592b75dbc/Screenshot%202026-02-08%20173158.png)
 
 
 💡 What I Learned
