@@ -25,7 +25,8 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("LOGIN DATA:", data);
+    
     if (!data.username || !data.password) {
       alert("Please fill all the fields");
       return;
@@ -34,21 +35,12 @@ const Login = () => {
     try {
       const response = await axios.post(`${AUTH_URL}/login`, data);
 
-      if (!response.data) {
-        throw new Error("Invalid response from server");
-      }
-
       setData({ username: "", password: "" });
-
       localStorage.setItem("id", response.data.id || response.data.user?._id);
       localStorage.setItem("token", response.data.token);
-
       dispatch(authAction.login()); // triggers redirect via useEffect
-
     } catch (error) {
-      console.error("Login error:", error);
-      const errorMessage = error.response?.data?.message || error.message || "Login failed. Please try again.";
-      alert(errorMessage);
+      alert(error.response?.data?.message || "Login failed");
     }
   };
 
@@ -58,14 +50,13 @@ const Login = () => {
         <div className="text-xl font-semibold">LogIn</div>
 
         <input
-          type="username"
+          type="text"
           name="username"
           placeholder="username"
           value={data.username}
           onChange={handleChange}
           className="bg-gray-700 px-3 py-2 my-3 w-full rounded"
         />
-
         <input
           type="password"
           name="password"
@@ -74,7 +65,6 @@ const Login = () => {
           onChange={handleChange}
           className="bg-gray-700 px-3 py-2 my-3 w-full rounded"
         />
-
         <div className="w-full flex items-center justify-between">
           <button
             className="bg-blue-700 px-4 py-2 rounded font-semibold mt-2"
@@ -82,7 +72,6 @@ const Login = () => {
           >
             LogIn
           </button>
-
           <Link
             to={"/signup"}
             className="text-gray-400 hover:text-gray-200"

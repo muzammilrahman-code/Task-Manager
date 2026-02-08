@@ -7,4 +7,15 @@ export default defineConfig({
   plugins: [react(),
         tailwindcss()
   ],
+  define: {
+    'process.env': process.env
+  },
+  server: {
+    host: '0.0.0.0',
+    port: 5173
+  },
+  preview: {
+    port: 4173,
+    host: '0.0.0.0'
+  }
 })

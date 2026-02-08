@@ -14,7 +14,7 @@ const corsOptions = {
   origin: [
     "https://task-management-uypq.vercel.app",
     "https://task-manager-five-rho-37.vercel.app",
-    "http://localhost:4000",
+    "http://localhost:5000",
     "http://localhost:5173",
     "http://localhost:3000",
     process.env.FRONTEND_URL
