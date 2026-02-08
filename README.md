@@ -1,8 +1,47 @@
-# React + Vite
+📝 Task Manager Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack Task Manager Web Application designed to help users efficiently manage their daily tasks. The application allows users to securely create an account, log in, and manage tasks with different statuses such as important, completed, and incomplete. The project focuses on clean architecture, secure authentication, and a smooth user experience.
 
-Currently, two official plugins are available:
+🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+User authentication and authorization using JWT
+
+Secure password hashing with bcrypt
+
+Create, update, delete, and manage tasks
+
+Mark tasks as important or completed
+
+Filter tasks by status (important, completed, incomplete)
+
+Protected routes using authentication middleware
+
+Responsive and clean UI
+
+🛠️ Tech Stack
+
+Frontend: React, Redux, JavaScript, Tailwind CSS
+
+Backend: Node.js, Express.js
+
+Database: MongoDB Atlas
+
+Authentication: JWT, bcrypt
+
+API: RESTful APIs
+
+📷 Application Preview
+
+
+
+💡 What I Learned
+
+Building and integrating REST APIs with a React frontend
+
+Implementing secure authentication and protected routes
+
+Managing global state using Redux
+
+Structuring a full-stack application with clean and scalable code
+
+Handling CORS, environment variables, and deployment configurations
